@@ -1,0 +1,84 @@
+/* Navbar */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #222;
+}
+
+nav h1 {
+  color: #fff;
+  font-size: 1.5rem;
+}
+
+nav div {
+  display: flex;
+  gap: 1rem;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+}
+
+nav a:hover {
+  color: #ccc;
+}
+
+/* Hero */
+.hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 75vh;
+  background-color: #f2f2f2;
+  padding: 0 2rem;
+  text-align: center;
+}
+
+.hero h2 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.hero button {
+  padding: 0.8rem 1.5rem;
+  font-size: 1.2rem;
+  border: none;
+  background-color: #222;
+  color: #fff;
+  cursor: pointer;
+}
+
+.hero button:hover {
+  background-color: #444;
+}
+
+/* Details */
+.details {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 1rem;
+}
+
+.details div {
+  text-align: center;
+  max-width: 30%;
+}
+
+.details h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.details p {
+  font-size: 1rem;
+}
