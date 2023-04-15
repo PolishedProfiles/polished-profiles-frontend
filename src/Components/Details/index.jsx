@@ -13,7 +13,7 @@ const Details = () => {
       </div>
       <div>
         <h3>Effortless Adaptability</h3>
-        <p>The perfect resume is just a few clicks away</p>
+        <p>The perfect resume is just a few clicks away. Get yours now!</p>
       </div>
     </section>
   );
