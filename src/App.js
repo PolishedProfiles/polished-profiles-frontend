@@ -5,6 +5,7 @@ import LandingPage from './Components/LandingPage';
 import Navbar from './Components/Navbar';
 
 function App() {
+
   return (
     <Router>
       <div className="App">
