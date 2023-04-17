@@ -1,12 +1,24 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 import './App.css';
 import LandingPage from './Components/LandingPage';
 import Navbar from './Components/Navbar';
 import DataEntry from './Components/ResumeEntry';
 
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#000000",
+    },
+  },
+});
+
+
 function App() {
   return (
+    <ThemeProvider theme={theme}>
     <Router>
       <div className="App">
         <Navbar />
@@ -19,6 +31,7 @@ function App() {
         </Routes>
       </div>
     </Router>
+    </ThemeProvider>
   );
 }
 

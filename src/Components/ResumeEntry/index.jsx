@@ -1,52 +1,67 @@
 import { useState } from "react";
 import axios from "axios";
-import ReactMarkdown from 'react-markdown';
-
+import ReactMarkdown from "react-markdown";
+import { Box, Button, CircularProgress, Container, TextField } from "@mui/material";
+import InputMethodSelect from "../InputMethodSelect";
+import TextInput from "../TextInput";
+import PDFInput from "../PDFInput";
 
 function DataEntry() {
   const [userResume, setUserResume] = useState();
   const [generatedResume, setGeneratedResume] = useState();
   const [inputType, setInputType] = useState("text");
   const [pdfFile, setPDFFile] = useState();
+  const [loading, setLoading] = useState(false);
+  const [jobDescription, setJobDescription] = useState("");
+
 
   async function handleSubmit(event) {
     event.preventDefault();
+    setLoading(true);
+  
     try {
       let response;
-      if (inputType === 'pdf') {
+      const payload = jobDescription
+        ? { resume: userResume, jobDescription }
+        : { resume: userResume };
+  
+      if (inputType === "pdf") {
         const formData = new FormData();
-        formData.append('resume', pdfFile);
-        console.log('pdf', formData, 'file', pdfFile)
-        response = await axios.post('http://localhost:3001/api/pdf', formData, {
+        formData.append("resume", pdfFile);
+  
+        if (jobDescription) {
+          formData.append("jobDescription", jobDescription);
+        }
+  
+        response = await axios.post("http://localhost:3001/api/coverletter", formData, {
           headers: {
-            'Content-Type': 'multipart/form-data',
+            "Content-Type": "multipart/form-data",
           },
         });
-        console.log(response.data);
       } else {
-        response = await axios.post('http://localhost:3001/api/resume', { resume: userResume }, {
+        response = await axios.post("http://localhost:3001/api/resume", payload, {
           headers: {
-            'Content-Type': 'text/plain',
+            "Content-Type": "text/plain",
           },
         });
       }
   
-      console.log(response.data);
       setGeneratedResume(response.data);
     } catch (error) {
       console.log(error.message);
+    } finally {
+      setLoading(false);
     }
   }
-  
   
   
 
   function handleChange(event) {
     setUserResume(event.target.value);
-    console.log(userResume)
-    setTimeout(() => {
-      console.log(userResume);
-    }, 500);
+  }
+
+  function handleJobDescriptionChange(event) {
+    setJobDescription(event.target.value);
   }
 
   function handleInputTypeChange(event) {
@@ -55,52 +70,83 @@ function DataEntry() {
 
   const handleFileUpload = (event) => {
     setPDFFile(event.target.files[0]);
-  }
+  };
 
   return (
-    <div className="ResumeEntry" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-      <form onSubmit={(event) => handleSubmit(event)} style={{ textAlign: 'center' }}>
-        <label>
-          Input Method
-          <select
-            value={inputType}
-            onChange={handleInputTypeChange}
-            style={{ marginLeft: "10px", marginBottom: "20px" }}
-          >
-            <option value="text">Enter as text</option>
-            <option value="pdf">Enter as PDF</option>
-          </select>
-        </label>
+    <Container maxWidth="md">
+      {!loading ? (
+        <Box
+          component="form"
+          onSubmit={handleSubmit}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: 2,
+            mt: 4,
+          }}
+        >
 
-        {inputType === "text" && (
-          <div>
-            <label>Input Info</label>
-            <textarea
-              style={{ width: "500px", height: "500px", display: "block", marginBottom: "20px" }}
-              onChange={(event) => handleChange(event)}
-            ></textarea>
-          </div>
-        )}
+          {!generatedResume && <InputMethodSelect
+            inputType={inputType}
+            handleInputTypeChange={handleInputTypeChange}
+            />}
+            {inputType === "text" && !generatedResume && <TextInput handleChange={handleChange} />}
+            {inputType === "pdf" && !generatedResume && <PDFInput handleFileUpload={handleFileUpload} pdfFile={pdfFile} />}
+          {!generatedResume && !loading && (
+  <>
 
-        {inputType === "pdf" && (
-          <div>
-            <label htmlFor="pdf">Upload PDF:</label>
-            <input
-              type="file"
-              id="pdf"
-              accept="application/pdf"
-              style={{ display: "block", marginBottom: "20px" }}
-              onChange={(event) => handleFileUpload(event)}
-            />
-          </div>
-        )}
+    <TextField
+      label="Job Description"
+      multiline
+      rows={4}
+      fullWidth
+      margin="normal"
+      variant="outlined"
+      value={jobDescription}
+      onChange={handleJobDescriptionChange}
+    />
+  </>
+)}
 
-        <button>Generate</button>
-      </form>
-      <div style={{ width: "80%", textAlign: "left", marginTop: "20px" }}>
+{loading && <CircularProgress />}
+
+{generatedResume && !loading && (
+  <TextField
+    label="Generated Resume"
+    multiline
+    rows={20}
+    fullWidth
+    margin="normal"
+    variant="outlined"
+    value={generatedResume}
+    onChange={(event) => setGeneratedResume(event.target.value)}
+  />
+)}
+
+
+          <Button type="submit" variant="contained" color="primary">
+            Generate
+          </Button>
+        </Box>
+      ) : (
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            height: "100%",
+            mt: 4,
+          }}
+        >
+          <CircularProgress />
+        </Box>
+      )}
+      <Box sx={{ width: "100%", textAlign: "left", mt: 4 }}>
         <ReactMarkdown>{generatedResume}</ReactMarkdown>
-      </div>
-    </div>
+      </Box>
+    </Container>
   );
 }
 
