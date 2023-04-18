@@ -1,12 +1,25 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 import './App.css';
 import LandingPage from './Components/LandingPage';
 import Navbar from './Components/Navbar';
+import DataEntry from './Components/ResumeEntry';
+
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#000000",
+    },
+  },
+});
+
 
 function App() {
 
   return (
+    <ThemeProvider theme={theme}>
     <Router>
       <div className="App">
         <Navbar />
@@ -15,10 +28,11 @@ function App() {
           <Route path='/history' element={<h1> History </h1>} />
           <Route path='/about' element={<h1> About </h1>} />
           <Route path='/login' element={<h1> Login </h1>} />
-          <Route path='/App' element={<h1> App </h1>} />
+          <Route path='/App' element={<DataEntry />} />
         </Routes>
       </div>
     </Router>
+    </ThemeProvider>
   );
 }
 
