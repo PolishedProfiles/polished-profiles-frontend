@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import ReactMarkdown from "react-markdown";
-import { Box, Button, CircularProgress, Container, TextField } from "@mui/material";
+import { Box, Button, CircularProgress, Container, TextField, Typography } from "@mui/material";
 import InputMethodSelect from "../InputMethodSelect";
 import TextInput from "../TextInput";
 import PDFInput from "../PDFInput";
@@ -13,6 +13,7 @@ function DataEntry() {
   const [pdfFile, setPDFFile] = useState();
   const [loading, setLoading] = useState(false);
   const [jobDescription, setJobDescription] = useState("");
+  const [coverLetter, setCoverLetter] = useState('');
 
 
   async function handleSubmit(event) {
@@ -33,7 +34,7 @@ function DataEntry() {
           formData.append("jobDescription", jobDescription);
         }
   
-        response = await axios.post("http://localhost:3001/api/coverletter", formData, {
+        response = await axios.post("http://localhost:3001/api/coverLetterPdf", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -46,7 +47,8 @@ function DataEntry() {
         });
       }
   
-      setGeneratedResume(response.data);
+      setGeneratedResume(response.data.resume);
+      setCoverLetter(response.data.coverLetter);
     } catch (error) {
       console.log(error.message);
     } finally {
@@ -141,10 +143,12 @@ function DataEntry() {
           }}
         >
           <CircularProgress />
+          <Typography sx={{mt: 4}}>Perfection takes time! Lean back and let us do the hard part.</Typography>
         </Box>
       )}
       <Box sx={{ width: "100%", textAlign: "left", mt: 4 }}>
         <ReactMarkdown>{generatedResume}</ReactMarkdown>
+        <ReactMarkdown>{coverLetter}</ReactMarkdown>
       </Box>
     </Container>
   );
