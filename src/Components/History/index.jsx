@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import Profile from '../Auth0/profile';
 import axios from 'axios';
 import { useAuth0 } from "@auth0/auth0-react";
+import { blueGrey } from '@mui/material/colors';
 
 const style = {
   position: 'absolute',
@@ -20,7 +21,21 @@ const style = {
   p: 4,
 };
 
-function History() {
+const modalStyle = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  padding: '1em',
+  transform: 'translate(-50%, -50%)',
+  height: 700,
+  width: 700,
+  boxShadow: 24,
+  backgroundColor: '#90caf9',
+  border: '3px solid #000',
+  overflowY: 'scroll',
+}
+
+function History({ modalResume, setModalResume }) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -64,12 +79,11 @@ useEffect(() => {
           open={open}
           onClose={handleClose}
         >
-          <Box sx={style}>
+          <Box sx={modalStyle}>
             <Typography>Header</Typography>
             <Typography variant='body1'>Date</Typography>
             <Typography variant='body1'>
-              Body Text goes here
-
+            { modalResume }
             </Typography>
           </Box>
         </Modal>
