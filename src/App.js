@@ -5,7 +5,7 @@ import './App.css';
 import LandingPage from './Components/LandingPage';
 import Navbar from './Components/Navbar';
 import DataEntry from './Components/ResumeEntry';
-
+import History from './Components/History';
 
 const theme = createTheme({
   palette: {
@@ -25,7 +25,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route path='/' element={<LandingPage />} />
-          <Route path='/history' element={<h1> History </h1>} />
+          <Route path='/history' element={<History />} />
           <Route path='/about' element={<h1> About </h1>} />      
           <Route path='/App' element={<DataEntry />} />
 
