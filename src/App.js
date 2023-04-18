@@ -7,6 +7,8 @@ import Navbar from './Components/Navbar';
 import DataEntry from './Components/ResumeEntry';
 import History from './Components/History';
 
+
+
 const theme = createTheme({
   palette: {
     primary: {
@@ -28,7 +30,6 @@ function App() {
           <Route path='/history' element={<History />} />
           <Route path='/about' element={<h1> About </h1>} />      
           <Route path='/App' element={<DataEntry />} />
-
         </Routes>
       </div>
     </Router>
