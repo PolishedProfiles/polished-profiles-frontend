@@ -1,42 +1,31 @@
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
+import React from 'react';
 
 function History() {
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   return (
     <div>
-      <Accordion>
-        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography>
-            Test Accordion
-          </Typography>
-          <Typography>
-            Date
-          </Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            This is a test of the giant voice system!
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
-      <Accordion>
-        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography>
-            Test Accordion No. 2 (Electric Boogaloo)
-          </Typography>
-          <Typography>
-            Date
-          </Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            This is another test of the giant voice system!
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
+      <Button onClick={handleOpen}>Open Modal</Button>
+      <Modal
+        open={open}
+        onClose={handleClose}
+      >
+      <Box>
+        <Typography>
+          Header Text in a Modal
+        </Typography>
+        <Typography>
+          Body Text in a Modal
+        </Typography>
+      </Box>
+
+      </Modal>
     </div>
   )
 };
