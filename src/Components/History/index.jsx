@@ -20,7 +20,7 @@ const style = {
   p: 4,
 };
 
-function History() {
+function History({ modalResume, setModalResume }) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -68,8 +68,7 @@ useEffect(() => {
             <Typography>Header</Typography>
             <Typography variant='body1'>Date</Typography>
             <Typography variant='body1'>
-              Body Text goes here
-
+            { modalResume }
             </Typography>
           </Box>
         </Modal>

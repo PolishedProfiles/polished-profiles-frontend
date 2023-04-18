@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import './App.css';
@@ -19,7 +19,7 @@ const theme = createTheme({
 
 
 function App() {
-
+const [modalResume, setModalResume] = useState(false);
   return (
     <ThemeProvider theme={theme}>
     <Router>
@@ -28,9 +28,9 @@ function App() {
         <Routes>
           <Route path='/' element={<LandingPage />} />
           
-          <Route path='/history' element={<History />} />
+          <Route path='/history' element={<History modalResume={modalResume} setModalResume={setModalResume} />} />
           <Route path='/about' element={<h1> About </h1>} />      
-          <Route path='/App' element={<DataEntry />} />
+          <Route path='/App' element={<DataEntry setModalResume={setModalResume} />} />
           
         </Routes>
       </div>

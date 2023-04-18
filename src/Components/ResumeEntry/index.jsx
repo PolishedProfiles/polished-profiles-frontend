@@ -14,7 +14,7 @@ import TextInput from "../TextInput";
 import PDFInput from "../PDFInput";
 
 // The main DataEntry component
-function DataEntry() {
+function DataEntry({ setModalResume }) {
   // State variables to store user input and API response
   const [userResume, setUserResume] = useState();
   const [generatedResume, setGeneratedResume] = useState();
@@ -61,6 +61,7 @@ function DataEntry() {
 
       // Update state with API response
       setGeneratedResume(response.data.resume);
+      setModalResume(response.data.resume);
       setCoverLetter(response.data.coverLetter);
     } catch (error) {
       console.log(error.message);
