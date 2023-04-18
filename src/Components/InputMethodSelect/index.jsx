@@ -11,8 +11,8 @@ function InputMethodSelect({ inputType, handleInputTypeChange }) {
         onChange={handleInputTypeChange}
         label="Input Method"
       >
-        <MenuItem value="text">Enter as text</MenuItem>
         <MenuItem value="pdf">Enter as PDF</MenuItem>
+        <MenuItem value="text">Enter as text</MenuItem>
       </Select>
     </FormControl>
   );

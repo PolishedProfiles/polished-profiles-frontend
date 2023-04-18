@@ -9,7 +9,7 @@ import PDFInput from "../PDFInput";
 function DataEntry() {
   const [userResume, setUserResume] = useState();
   const [generatedResume, setGeneratedResume] = useState();
-  const [inputType, setInputType] = useState("text");
+  const [inputType, setInputType] = useState("pdf");
   const [pdfFile, setPDFFile] = useState();
   const [loading, setLoading] = useState(false);
   const [jobDescription, setJobDescription] = useState("");
