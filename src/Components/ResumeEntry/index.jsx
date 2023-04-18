@@ -12,6 +12,7 @@ import {
 import InputMethodSelect from "../InputMethodSelect";
 import TextInput from "../TextInput";
 import PDFInput from "../PDFInput";
+import { useAuth0 } from "@auth0/auth0-react";
 
 // The main DataEntry component
 function DataEntry() {
@@ -23,6 +24,7 @@ function DataEntry() {
   const [loading, setLoading] = useState(false);
   const [jobDescription, setJobDescription] = useState("");
   const [coverLetter, setCoverLetter] = useState("");
+  const { user } = useAuth0();
 
   // Function to handle form submission
   async function handleSubmit(event) {
@@ -40,6 +42,7 @@ function DataEntry() {
       if (inputType === "pdf") {
         const formData = new FormData();
         formData.append("resume", pdfFile);
+        formData.append('email', user.email)
 
         if (jobDescription) {
           formData.append("jobDescription", jobDescription);
@@ -91,6 +94,7 @@ function DataEntry() {
 
   return (
     <Container maxWidth="md">
+      <h1>{user.email}</h1>
       {!loading ? (
         // Render form and input fields when not loading
         <Box
