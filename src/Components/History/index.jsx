@@ -1,9 +1,13 @@
-import { Box, Grid } from '@mui/material';
+
+import { Grid } from '@mui/material';
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
-import React from 'react';
-import { generatedResume } from '../ResumeEntry/index'
+import { useEffect, useState } from 'react';
+import Profile from '../Auth0/profile';
+import axios from 'axios';
+import { useAuth0 } from "@auth0/auth0-react";
 
 const style = {
   position: 'absolute',
@@ -18,18 +22,45 @@ const style = {
 };
 
 function History() {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [history, setHistory] = useState({});
+  const { user, isAuthenticated, isLoading, getIdTokenClaims } = useAuth0();
+console.log('history: history', history)
+useEffect(() => {
+  const getHistory = async () => {
+    if(isAuthenticated){
+      const res = await getIdTokenClaims();
+      const jwt = res.__raw;
+      console.log('token', jwt);
+
+      const config = {
+        headers: { "Authorization": `Bearer ${jwt}` },
+        method: 'get',
+        baseURL: process.env.REACT_APP_SERVER,
+        url: '/history'
+      };
+
+      let response = await axios (config);
+      setHistory(response.data);
+    }
+  }
+
+  getHistory();
+}, []);
 
   return (
+    <>
+      <Profile />
       <Grid
         container
         direction="column"
-      >
+        >
         <Button onClick={handleOpen}>Job Application no.1</Button>
         <Button onClick={handleOpen}>Job Application no.2</Button>
         <Button onClick={handleOpen}>Job Application no.3</Button>
+
         <Modal
           open={open}
           onClose={handleClose}
@@ -39,10 +70,12 @@ function History() {
             <Typography variant='body1'>Date</Typography>
             <Typography variant='body1'>
               Body Text goes here
+
             </Typography>
           </Box>
         </Modal>
       </Grid>
+    </>
   )
 };
 
