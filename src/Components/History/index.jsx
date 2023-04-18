@@ -1,9 +1,9 @@
-import { Grid } from '@mui/material';
-import Box from '@mui/material/Box';
+import { Box, Grid } from '@mui/material';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
 import React from 'react';
+import { generatedResume } from '../ResumeEntry/index'
 
 const style = {
   position: 'absolute',
@@ -27,21 +27,18 @@ function History() {
         container
         direction="column"
       >
-        <Button onClick={handleOpen}>
-          Job Application no.1
-        </Button>
-        <Button>Job Application no.2</Button>
-        <Button>Job Application no.3</Button>
+        <Button onClick={handleOpen}>Job Application no.1</Button>
+        <Button onClick={handleOpen}>Job Application no.2</Button>
+        <Button onClick={handleOpen}>Job Application no.3</Button>
         <Modal
           open={open}
           onClose={handleClose}
         >
           <Box sx={style}>
-            <Typography>
-              Header Text in a Modal
-            </Typography>
-            <Typography>
-              Body Text in a Modal
+            <Typography>Header</Typography>
+            <Typography variant='body1'>Date</Typography>
+            <Typography variant='body1'>
+              Body Text goes here
             </Typography>
           </Box>
         </Modal>
