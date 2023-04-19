@@ -40,7 +40,7 @@ function History({ modalResume, setModalResume }) {
   useEffect(() => {
     const getResume = async () => {
       let payload = { email: user.email }
-      let response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}}/api/history`, payload);
+      let response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/history`, payload);
       setHistory(response.data);
       console.log('Resume proof of life', response.data);
     }
