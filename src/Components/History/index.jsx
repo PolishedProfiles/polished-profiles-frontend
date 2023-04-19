@@ -7,19 +7,19 @@ import { useEffect, useState } from 'react';
 import Profile from '../Auth0/profile';
 import axios from 'axios';
 import { useAuth0 } from "@auth0/auth0-react";
-import { blueGrey } from '@mui/material/colors';
+// import { blueGrey } from '@mui/material/colors';
 
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-};
+// const style = {
+//   position: 'absolute',
+//   top: '50%',
+//   left: '50%',
+//   transform: 'translate(-50%, -50%)',
+//   width: 400,
+//   bgcolor: 'background.paper',
+//   border: '2px solid #000',
+//   boxShadow: 24,
+//   p: 4,
+// };
 
 const modalStyle = {
   position: 'absolute',
@@ -39,7 +39,7 @@ function History({ modalResume, setModalResume }) {
   const [open, setOpen] = useState(false);
   const handleClose = () => setOpen(false);
   const [history, setHistory] = useState({});
-  const { user, isAuthenticated, isLoading, getIdTokenClaims } = useAuth0();
+  const { user } = useAuth0();
 
   const handleOpen = (resume) => {
     setOpen(true)
@@ -57,6 +57,7 @@ function History({ modalResume, setModalResume }) {
       console.log('Resume proof of life', response.data);
     }
     getResume();
+       // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
 console.log('history: history', history)
