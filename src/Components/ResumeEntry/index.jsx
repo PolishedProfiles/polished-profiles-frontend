@@ -35,8 +35,8 @@ function DataEntry() {
       let response;
       // Prepare payload with job description if it's provided
       const payload = jobDescription
-        ? { resume: userResume, jobDescription }
-        : { resume: userResume };
+        ? { resume: userResume, jobDescription, email: user.email }
+        : { resume: userResume, email: user.email };
 
       // Handle PDF input type
       if (inputType === "pdf") {
@@ -55,9 +55,10 @@ function DataEntry() {
         });
       } else {
         // Handle text input type
-        response = await axios.post("http://localhost:3001/api/resume", payload, {
+        console.log(payload);
+        response = await axios.post("http://localhost:3001/api/coverLetter", payload, {
           headers: {
-            "Content-Type": "text/plain",
+            "Content-Type": 'application/json',
           },
         });
       }
