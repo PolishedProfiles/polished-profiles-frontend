@@ -13,15 +13,21 @@ const Navbar = () => {
       <h1>Polished Profiles</h1>
       <div>
         <Link to="/">Home</Link>
-        <Link to="/about">About</Link>
         {isAuthenticated ? (
           <>
             <Link to="/app">App</Link>
             <Link to="/history">History</Link>
+            <Link to="/about">About</Link>
             < LogoutButton />
           </>
         )
-          : <LoginButton />}
+          : <>
+          <Link to="/about">About</Link>
+          <LoginButton />
+          </>
+          }
+       
+
         {/* <a href="/login" >Login</a> */}
 
 

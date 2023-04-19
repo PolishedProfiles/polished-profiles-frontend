@@ -18,6 +18,8 @@ import { useAuth0 } from "@auth0/auth0-react";
 import html2pdf from 'html2pdf.js';
 // import jsPDF from "jspdf";
 
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL
+
 // The main DataEntry component
 function DataEntry({ setModalResume }) {
   // State variables to store user input and API response
@@ -54,7 +56,7 @@ function DataEntry({ setModalResume }) {
           formData.append("jobDescription", jobDescription);
         }
 
-        response = await axios.post("http://localhost:3001/api/coverLetterPdf", formData, {
+        response = await axios.post(`${BACKEND_URL}/api/coverLetterPdf`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -62,7 +64,7 @@ function DataEntry({ setModalResume }) {
       } else {
         // Handle text input type
         console.log(payload);
-        response = await axios.post("http://localhost:3001/api/coverLetter", payload, {
+        response = await axios.post(`${BACKEND_URL}/api/coverLetter`, payload, {
           headers: {
             "Content-Type": 'application/json',
           },
@@ -103,7 +105,7 @@ function DataEntry({ setModalResume }) {
   const generatePDF = async (resumeMarkdown) => {
     const opt = {
       margin: 0.2,
-      filename: 'resume.pdf',
+      filename: `${user.email}-resume.pdf`,
       image: { type: 'jpeg', quality: 0.98 },
       html2canvas: { scale: 2 },
       jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
