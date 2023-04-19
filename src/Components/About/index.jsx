@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Backdrop, Card, CardActionArea, CardContent, CardMedia, keyframes } from '@mui/material';
+import { Backdrop, Card, CardActionArea, CardContent, CardMedia } from '@mui/material';
 import { Grid } from '@mui/material';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';

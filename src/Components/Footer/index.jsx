@@ -1,4 +1,4 @@
-import { Container, Grid, Text, Link } from '@mantine/core';
+import { Container, Grid, Text } from '@mantine/core';
 // import { GitHub, Twitter, Instagram } from 'react-feather';
 
 function Footer() {
