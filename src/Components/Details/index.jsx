@@ -5,7 +5,7 @@ const Details = () => {
     <section className="details">
       <div>
         <h3>Precision-Matched Resumes</h3>
-        <p>Ensure your resume is a perfect fit for every oppurtunity</p>
+        <p>Ensure your resume is a perfect fit for every opportunity</p>
       </div>
       <div>
         <h3>Instantly Impressive</h3>
