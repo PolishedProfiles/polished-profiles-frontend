@@ -30,42 +30,60 @@ const modalStyle = {
   height: 700,
   width: 700,
   boxShadow: 24,
-  backgroundColor: '#90caf9',
+  backgroundColor: '#ffffff',
   border: '3px solid #000',
   overflowY: 'scroll',
 }
 
 function History({ modalResume, setModalResume }) {
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [history, setHistory] = useState({});
   const { user, isAuthenticated, isLoading, getIdTokenClaims } = useAuth0();
- 
+
+  const handleOpen = (resume) => {
+    setOpen(true)
+    setModalResume(resume)
+    console.log(resume.resume)
+    console.log(resume.coverLetter)
+
+  };
+
+  useEffect(() => {
+    const getResume = async () => {
+      let payload = {email: user.email}
+      let response = await axios.post('http://localhost:3001/api/history', payload);
+      setHistory(response.data);
+      console.log('Resume proof of life', response.data);
+    }
+    getResume();
+  }, [])
 
 console.log('history: history', history)
-useEffect(() => {
-  const getHistory = async () => {
-    if(isAuthenticated){
-      const res = await getIdTokenClaims();
-      console.log(JSON.stringify(res, null, 2));
-      const jwt = res.__raw;
-      console.log('token', jwt);
+// useEffect(() => {
+//   const getHistory = async () => {
+//     if(isAuthenticated){
+//       const res = await getIdTokenClaims();
+//       console.log(JSON.stringify(res, null, 2));
+//       const jwt = res.__raw;
+//       console.log('token', jwt);
 
-      const config = {
-        headers: { "Authorization": `Bearer ${jwt}` },
-        method: 'get',
-        baseURL: process.env.REACT_APP_SERVER,
-        url: '/history'
-      };
+//       const config = {
+//         headers: { "Authorization": `Bearer ${jwt}` },
+//         method: 'get',
+//         baseURL: process.env.REACT_APP_SERVER,
+//         url: '/history'
+//       };
 
-      let response = await axios (config);
-      setHistory(response.data);
-    }
-  }
 
-  getHistory();
-}, [isAuthenticated, getIdTokenClaims]);
+
+//       let response = await axios (config);
+//       setHistory(response.data);
+//     }
+//   }
+
+//   getHistory();
+// }, [isAuthenticated, getIdTokenClaims]);
 
   return (
     <>
@@ -74,19 +92,22 @@ useEffect(() => {
         container
         direction="column"
         >
-        <Button onClick={handleOpen}>Job Application no.1</Button>
-        <Button onClick={handleOpen}>Job Application no.2</Button>
-        <Button onClick={handleOpen}>Job Application no.3</Button>
+        {history.length > 0 && history.map((resume, idx) => (
+          <Button key={`resume-${idx}`} onClick={() => handleOpen(resume)}>Job Application no.{idx + 1}</Button>
+        ))}
 
         <Modal
           open={open}
           onClose={handleClose}
         >
           <Box sx={modalStyle}>
-            <Typography>Header</Typography>
-            <Typography variant='body1'>Date</Typography>
-            <Typography variant='body1'>
-            { modalResume }
+            <Typography sx={{mb: 3}} variant='h4'>Cover Letter</Typography>
+            <Typography sx={{mb: 3}} variant='body1'>
+            { modalResume.coverLetter }
+            </Typography>
+            <Typography sx={{mb: 3}} variant='h4'>Resume</Typography>
+            <Typography sx={{mb: 3}} variant='body1'>
+              { modalResume.resume }
             </Typography>
           </Box>
         </Modal>
