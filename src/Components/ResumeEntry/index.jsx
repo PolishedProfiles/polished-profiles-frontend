@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import axios from "axios";
 import ReactMarkdown from "react-markdown";
 import {
@@ -14,8 +14,9 @@ import TextInput from "../TextInput";
 import PDFInput from "../PDFInput";
 import { useAuth0 } from "@auth0/auth0-react";
 
-import jsPDF from "jspdf";
-import { doesNotMatch } from "assert";
+// import html2canvas from 'html2canvas';
+import html2pdf from 'html2pdf.js';
+// import jsPDF from "jspdf";
 
 // The main DataEntry component
 function DataEntry({ setModalResume }) {
@@ -28,6 +29,8 @@ function DataEntry({ setModalResume }) {
   const [jobDescription, setJobDescription] = useState("");
   const [coverLetter, setCoverLetter] = useState("");
   const { user } = useAuth0();
+
+  const resumeRef = useRef();
 
   // Function to handle form submission
   async function handleSubmit(event) {
@@ -98,15 +101,17 @@ function DataEntry({ setModalResume }) {
   };
 
   const generatePDF = async (resumeMarkdown) => {
-    const doc = new jsPDF({
-      orientation: "landscape",
-      unit: "in",
-      format: [15, 15]
-    });
-    let markdownHTML = document.querySelector('#resume-markdown');
+    const opt = {
+      margin: 0.2,
+      filename: 'resume.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+    };
 
-    doc.text(generatedResume, 0, 0);
-    doc.save('a4.pdf');
+    const resumeElement = resumeRef.current;
+    html2pdf().from(resumeElement).set(opt).save();
+
   };
 
   return (
@@ -183,7 +188,7 @@ function DataEntry({ setModalResume }) {
           <Typography sx={{ mt: 4 }}>Perfection takes time! Lean back and let us do the hard part.</Typography>
         </Box>
       )}
-      <Box sx={{ width: "100%", textAlign: "left", mt: 4 }}>
+      <Box ref={resumeRef} sx={{ width: "100%", textAlign: "left", mt: 4 }}>
         <ReactMarkdown id="resume-markdown">{generatedResume}</ReactMarkdown>
         <ReactMarkdown>{coverLetter}</ReactMarkdown>
       </Box>
