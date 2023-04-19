@@ -41,11 +41,14 @@ function History({ modalResume, setModalResume }) {
   const handleClose = () => setOpen(false);
   const [history, setHistory] = useState({});
   const { user, isAuthenticated, isLoading, getIdTokenClaims } = useAuth0();
+ 
+
 console.log('history: history', history)
 useEffect(() => {
   const getHistory = async () => {
     if(isAuthenticated){
       const res = await getIdTokenClaims();
+      console.log(JSON.stringify(res, null, 2));
       const jwt = res.__raw;
       console.log('token', jwt);
 
