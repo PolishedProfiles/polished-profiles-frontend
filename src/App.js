@@ -6,6 +6,7 @@ import LandingPage from './Components/LandingPage';
 import Navbar from './Components/Navbar';
 import DataEntry from './Components/ResumeEntry';
 import History from './Components/History';
+import About from './Components/About';
 
 
 
@@ -29,7 +30,7 @@ const [modalResume, setModalResume] = useState(false);
           <Route path='/' element={<LandingPage />} />
           
           <Route path='/history' element={<History modalResume={modalResume} setModalResume={setModalResume} />} />
-          <Route path='/about' element={<h1> About </h1>} />      
+          <Route path='/about' element={<About />} />      
           <Route path='/App' element={<DataEntry setModalResume={setModalResume} />} />
           
         </Routes>
