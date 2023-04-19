@@ -14,6 +14,9 @@ import TextInput from "../TextInput";
 import PDFInput from "../PDFInput";
 import { useAuth0 } from "@auth0/auth0-react";
 
+import jsPDF from "jspdf";
+import { doesNotMatch } from "assert";
+
 // The main DataEntry component
 function DataEntry({ setModalResume }) {
   // State variables to store user input and API response
@@ -94,6 +97,18 @@ function DataEntry({ setModalResume }) {
     setPDFFile(event.target.files[0]);
   };
 
+  const generatePDF = async (resumeMarkdown) => {
+    const doc = new jsPDF({
+      orientation: "landscape",
+      unit: "in",
+      format: [15, 15]
+    });
+    let markdownHTML = document.querySelector('#resume-markdown');
+
+    doc.text(generatedResume, 0, 0);
+    doc.save('a4.pdf');
+  };
+
   return (
     <Container maxWidth="md">
       <h1>{user.email}</h1>
@@ -151,6 +166,7 @@ function DataEntry({ setModalResume }) {
           <Button type="submit" variant="contained" color="primary">
             Generate
           </Button>
+          <Button onClick={() => generatePDF(generatedResume)}>Download</Button>
         </Box>
       ) : (
         <Box
@@ -168,7 +184,7 @@ function DataEntry({ setModalResume }) {
         </Box>
       )}
       <Box sx={{ width: "100%", textAlign: "left", mt: 4 }}>
-        <ReactMarkdown>{generatedResume}</ReactMarkdown>
+        <ReactMarkdown id="resume-markdown">{generatedResume}</ReactMarkdown>
         <ReactMarkdown>{coverLetter}</ReactMarkdown>
       </Box>
     </Container>
