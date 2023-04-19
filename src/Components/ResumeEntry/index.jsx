@@ -12,6 +12,7 @@ import {
 import InputMethodSelect from "../InputMethodSelect";
 import TextInput from "../TextInput";
 import PDFInput from "../PDFInput";
+import { useAuth0 } from "@auth0/auth0-react";
 
 // The main DataEntry component
 function DataEntry({ setModalResume }) {
@@ -23,6 +24,7 @@ function DataEntry({ setModalResume }) {
   const [loading, setLoading] = useState(false);
   const [jobDescription, setJobDescription] = useState("");
   const [coverLetter, setCoverLetter] = useState("");
+  const { user } = useAuth0();
 
   // Function to handle form submission
   async function handleSubmit(event) {
@@ -33,13 +35,14 @@ function DataEntry({ setModalResume }) {
       let response;
       // Prepare payload with job description if it's provided
       const payload = jobDescription
-        ? { resume: userResume, jobDescription }
-        : { resume: userResume };
+        ? { resume: userResume, jobDescription, email: user.email }
+        : { resume: userResume, email: user.email };
 
       // Handle PDF input type
       if (inputType === "pdf") {
         const formData = new FormData();
         formData.append("resume", pdfFile);
+        formData.append('email', user.email)
 
         if (jobDescription) {
           formData.append("jobDescription", jobDescription);
@@ -52,9 +55,10 @@ function DataEntry({ setModalResume }) {
         });
       } else {
         // Handle text input type
-        response = await axios.post("http://localhost:3001/api/resume", payload, {
+        console.log(payload);
+        response = await axios.post("http://localhost:3001/api/coverLetter", payload, {
           headers: {
-            "Content-Type": "text/plain",
+            "Content-Type": 'application/json',
           },
         });
       }
@@ -92,6 +96,7 @@ function DataEntry({ setModalResume }) {
 
   return (
     <Container maxWidth="md">
+      <h1>{user.email}</h1>
       {!loading ? (
         // Render form and input fields when not loading
         <Box
