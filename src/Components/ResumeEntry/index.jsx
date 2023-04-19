@@ -15,7 +15,7 @@ import PDFInput from "../PDFInput";
 import { useAuth0 } from "@auth0/auth0-react";
 
 // import html2canvas from 'html2canvas';
-import html2pdf from 'html2pdf.js';
+// import html2pdf from 'html2pdf.js';
 // import jsPDF from "jspdf";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL
@@ -103,16 +103,17 @@ function DataEntry({ setModalResume }) {
   };
 
   const generatePDF = async (resumeMarkdown) => {
-    const opt = {
-      margin: 0.2,
-      filename: `${user.email}-resume.pdf`,
-      image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2 },
-      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
-    };
+    console.log(resumeMarkdown);
+  //   const opt = {
+  //     margin: 0.2,
+  //     filename: `${user.email}-resume.pdf`,
+  //     image: { type: 'jpeg', quality: 0.98 },
+  //     html2canvas: { scale: 2 },
+  //     jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+  //   };
 
-    const resumeElement = resumeRef.current;
-    html2pdf().from(resumeElement).set(opt).save();
+  //   const resumeElement = resumeRef.current;
+  //   // html2pdf().from(resumeElement).set(opt).save();
 
   };
 
