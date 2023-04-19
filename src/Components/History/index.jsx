@@ -41,6 +41,8 @@ function History({ modalResume, setModalResume }) {
   const handleClose = () => setOpen(false);
   const [history, setHistory] = useState({});
   const { user, isAuthenticated, isLoading, getIdTokenClaims } = useAuth0();
+ 
+
 console.log('history: history', history)
 useEffect(() => {
   const getHistory = async () => {
