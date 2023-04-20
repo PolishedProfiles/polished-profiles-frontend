@@ -1,6 +1,7 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import axios from "axios";
 import ReactMarkdown from "react-markdown";
+import ReactDOM from "react-dom";
 import { Box, Button, CircularProgress, Container, TextField, Typography } from "@mui/material";
 import InputMethodSelect from "../InputMethodSelect";
 import TextInput from "../TextInput";
@@ -10,9 +11,8 @@ import html2pdf from 'html2pdf.js';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL
 
-// The main DataEntry component
 function DataEntry({ setModalResume }) {
-  // State variables to store user input and API response
+
   const [userResume, setUserResume] = useState();
   const [generatedResume, setGeneratedResume] = useState();
   const [inputType, setInputType] = useState("pdf");
@@ -22,9 +22,6 @@ function DataEntry({ setModalResume }) {
   const [coverLetter, setCoverLetter] = useState("");
   const { user } = useAuth0();
 
-  const resumeRef = useRef();
-
-  // Function to handle form submission
   async function handleSubmit(event) {
     event.preventDefault();
     setLoading(true);
@@ -92,19 +89,21 @@ function DataEntry({ setModalResume }) {
     setPDFFile(event.target.files[0]);
   };
 
-  const generatePDF = async (resumeMarkdown) => {
-    console.log(resumeMarkdown);
+  const generatePDF = async (markdownContent, fileName) => {
     const opt = {
       margin: 0.2,
-      filename: `${user.email}-resume.pdf`,
+      filename: fileName,
       image: { type: 'jpeg', quality: 0.98 },
       html2canvas: { scale: 2 },
-      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
     };
 
-    const resumeElement = resumeRef.current;
-    html2pdf().from(resumeElement).set(opt).save();
+    const markdownElement = document.createElement('div');
+    markdownElement.innerHTML = '<style>body {font-family: Arial, sans-serif;}</style>';
+    const markdownRenderer = <ReactMarkdown>{markdownContent}</ReactMarkdown>;
+    ReactDOM.render(markdownRenderer, markdownElement);
 
+    html2pdf().from(markdownElement).set(opt).save();
   };
 
   return (
@@ -136,6 +135,7 @@ function DataEntry({ setModalResume }) {
               <TextField
                 label="Job Description"
                 multiline
+                required
                 rows={4}
                 fullWidth
                 margin="normal"
@@ -150,34 +150,58 @@ function DataEntry({ setModalResume }) {
           {loading && <CircularProgress />}
 
           {generatedResume && !loading && (
-            <div style={{display:"flex", gap: "1.5rem", width: "125%"}}>
-              <TextField
-                label="Generated Resume"
-                multiline
-                rows={20}
-                fullWidth
-                margin="normal"
-                variant="outlined"
-                value={generatedResume}
-                onChange={(event) => setGeneratedResume(event.target.value)}
-              />
-              <TextField
-                label="Cover Letter"
-                multiline
-                rows={20}
-                fullWidth
-                margin="normal"
-                variant="outlined"
-                value={coverLetter}
-                onChange={(event) => setCoverLetter(event.target.value)}
-              />
-            </div>
+             <div style={{ display: "flex", gap: "1.5rem", width: "125%" }}>
+             <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+               <TextField
+                 label="Generated Resume"
+                 multiline
+                 rows={20}
+                 fullWidth
+                 margin="normal"
+                 variant="outlined"
+                 value={generatedResume}
+                 onChange={(event) => setGeneratedResume(event.target.value)}
+                 sx={{ resize: 'horizontal', overflow: 'auto' }}
+               />
+               <Button
+                 variant="contained"
+                 color="primary"
+                 sx={{ width: '70%' }}
+                 onClick={() => generatePDF(generatedResume, `${user.email}-resume.pdf`)}
+               >
+                 Download Updated Resume
+               </Button>
+               <ReactMarkdown id="resume-markdown">{generatedResume}</ReactMarkdown>
+             </div>
+             <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+               <TextField
+                 label="Cover Letter"
+                 multiline
+                 rows={20}
+                 fullWidth
+                 margin="normal"
+                 variant="outlined"
+                 value={coverLetter}
+                 onChange={(event) => setCoverLetter(event.target.value)}
+                 sx={{ resize: 'horizontal', overflow: 'auto' }}
+               />
+               <Button
+                 variant="contained"
+                 color="primary"
+                 sx={{ width: '70%' }}
+                 onClick={() => generatePDF(coverLetter, `${user.email}-cover-letter.pdf`)}
+               >
+                 Download Cover Letter
+               </Button>
+               <ReactMarkdown>{coverLetter}</ReactMarkdown>
+             </div>
+           </div>
           )}
 
           {
             !generatedResume
               ? <Button type="submit" variant="contained" color="primary">Generate</Button>
-              : <Button variant="contained" color="primary" onClick={() => generatePDF(generatedResume)}>Download</Button>
+              : null
           }
         </Box>
       ) : (
@@ -195,10 +219,6 @@ function DataEntry({ setModalResume }) {
           <Typography sx={{ mt: 4 }}>Perfection takes time! Lean back and let us do the hard part.</Typography>
         </Box>
       )}
-      <Box ref={resumeRef} sx={{ width: "100%", textAlign: "left", mt: 4 }}>
-        <ReactMarkdown id="resume-markdown">{generatedResume}</ReactMarkdown>
-        <ReactMarkdown>{coverLetter}</ReactMarkdown>
-      </Box>
     </Container>
   );
 }
