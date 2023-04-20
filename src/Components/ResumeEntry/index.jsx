@@ -1,22 +1,12 @@
 import { useState, useRef } from "react";
 import axios from "axios";
 import ReactMarkdown from "react-markdown";
-import {
-  Box,
-  Button,
-  CircularProgress,
-  Container,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Box, Button, CircularProgress, Container, TextField, Typography } from "@mui/material";
 import InputMethodSelect from "../InputMethodSelect";
 import TextInput from "../TextInput";
 import PDFInput from "../PDFInput";
 import { useAuth0 } from "@auth0/auth0-react";
-
-// import html2canvas from 'html2canvas';
 import html2pdf from 'html2pdf.js';
-// import jsPDF from "jspdf";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL
 
@@ -137,6 +127,7 @@ function DataEntry({ setModalResume }) {
             inputType={inputType}
             handleInputTypeChange={handleInputTypeChange}
           />}
+          {/* <div style={{display: 'flex', width: '100%', gap: '2em', justifyContent: 'space-between'}}> */}
           {inputType === "text" && !generatedResume && <TextInput handleChange={handleChange} />}
           {inputType === "pdf" && !generatedResume && <PDFInput handleFileUpload={handleFileUpload} pdfFile={pdfFile} />}
           {!generatedResume && !loading && (
@@ -154,27 +145,40 @@ function DataEntry({ setModalResume }) {
               />
             </>
           )}
+          {/* </div> */}
 
           {loading && <CircularProgress />}
 
           {generatedResume && !loading && (
-            <TextField
-              label="Generated Resume"
-              multiline
-              rows={20}
-              fullWidth
-              margin="normal"
-              variant="outlined"
-              value={generatedResume}
-              onChange={(event) => setGeneratedResume(event.target.value)}
-            />
+            <div style={{display:"flex", gap: "1.5rem", width: "125%"}}>
+              <TextField
+                label="Generated Resume"
+                multiline
+                rows={20}
+                fullWidth
+                margin="normal"
+                variant="outlined"
+                value={generatedResume}
+                onChange={(event) => setGeneratedResume(event.target.value)}
+              />
+              <TextField
+                label="Cover Letter"
+                multiline
+                rows={20}
+                fullWidth
+                margin="normal"
+                variant="outlined"
+                value={coverLetter}
+                onChange={(event) => setCoverLetter(event.target.value)}
+              />
+            </div>
           )}
 
-
-          <Button type="submit" variant="contained" color="primary">
-            Generate
-          </Button>
-          <Button onClick={() => generatePDF(generatedResume)}>Download</Button>
+          {
+            !generatedResume
+              ? <Button type="submit" variant="contained" color="primary">Generate</Button>
+              : <Button variant="contained" color="primary" onClick={() => generatePDF(generatedResume)}>Download</Button>
+          }
         </Box>
       ) : (
         <Box
