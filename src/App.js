@@ -7,7 +7,7 @@ import Navbar from './Components/Navbar';
 import DataEntry from './Components/ResumeEntry';
 import History from './Components/History';
 import About from './Components/About';
-
+import Footer from './Components/Footer';
 
 
 const theme = createTheme({
@@ -36,6 +36,7 @@ const [modalResume, setModalResume] = useState(false);
         </Routes>
       </div>
     </Router>
+    <Footer />
     </ThemeProvider>
   );
 }
