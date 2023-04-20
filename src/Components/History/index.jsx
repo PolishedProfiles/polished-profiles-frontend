@@ -1,4 +1,4 @@
-import { Backdrop, Fade, Grid } from '@mui/material';
+import { Backdrop, Card, CardMedia, Fade, Grid } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
@@ -76,7 +76,10 @@ function History({ modalResume, setModalResume }) {
 
   return (
     <>
-      <Profile  />
+      <Card sx={{ maxWidth: 150, maxHeight: 400, marginLeft: 2, marginTop: 2, display: 'flex', alignItems: 'center', boxShadow: '2px 2px 5px grey'}}>
+        <Profile />
+
+      </Card>
       <Grid
         container
         direction="column"
