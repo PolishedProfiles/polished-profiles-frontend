@@ -27,7 +27,7 @@ function History({ modalResume, setModalResume }) {
   const [open, setOpen] = useState(false);
   const handleClose = () => setOpen(false);
   const [history, setHistory] = useState({});
-  const { user, isAuthenticated, isLoading, getIdTokenClaims } = useAuth0();
+  const { user } = useAuth0();
 
   const handleOpen = (resume) => {
     setOpen(true)
@@ -45,6 +45,7 @@ function History({ modalResume, setModalResume }) {
       console.log('Resume proof of life', response.data);
     }
     getResume();
+       // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   console.log('history: history', history)

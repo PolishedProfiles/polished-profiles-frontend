@@ -103,6 +103,7 @@ function DataEntry({ setModalResume }) {
   };
 
   const generatePDF = async (resumeMarkdown) => {
+    console.log(resumeMarkdown);
     const opt = {
       margin: 0.2,
       filename: `${user.email}-resume.pdf`,
