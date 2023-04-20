@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Backdrop, Card, CardActionArea, CardContent, CardMedia, keyframes } from '@mui/material';
+import { Backdrop, Card, CardActionArea, CardContent, CardMedia } from '@mui/material';
 import { Grid } from '@mui/material';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
@@ -9,7 +9,7 @@ import Tyler from '../assets/tyler.jpg';
 import Brenda from '../assets/brenda.jpg';
 import Rafael from '../assets/rafael.png';
 import John from '../assets/john.png';
-import Logo from '../assets/Logo.png';
+import Logo from '../assets/temp-logo-2.png';
 
 const closeButtonStyle = {
   position: 'absolute',
