@@ -26,6 +26,19 @@ nav a:hover {
   color: #ccc;
 }
 
+nav button {
+  background-color: #222;
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font-size: 1rem;
+}
+
+nav button:hover {
+  color: #ccc
+}
+
 /* Hero */
 .hero {
   display: flex;
