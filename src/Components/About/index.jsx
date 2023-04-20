@@ -9,7 +9,7 @@ import Tyler from '../assets/tyler.jpg';
 import Brenda from '../assets/brenda.jpg';
 import Rafael from '../assets/rafael.png';
 import John from '../assets/john.png';
-import Logo from '../assets/Logo.png';
+import Logo from '../assets/temp-logo-2.png';
 
 const closeButtonStyle = {
   position: 'absolute',
