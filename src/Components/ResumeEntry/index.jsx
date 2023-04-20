@@ -150,23 +150,35 @@ function DataEntry({ setModalResume }) {
           {loading && <CircularProgress />}
 
           {generatedResume && !loading && (
-            <TextField
-              label="Generated Resume"
-              multiline
-              rows={20}
-              fullWidth
-              margin="normal"
-              variant="outlined"
-              value={generatedResume}
-              onChange={(event) => setGeneratedResume(event.target.value)}
-            />
+            <div style={{display:"flex", gap: "1.5rem", width: "125%"}}>
+              <TextField
+                label="Generated Resume"
+                multiline
+                rows={20}
+                fullWidth
+                margin="normal"
+                variant="outlined"
+                value={generatedResume}
+                onChange={(event) => setGeneratedResume(event.target.value)}
+              />
+              <TextField
+                label="Cover Letter"
+                multiline
+                rows={20}
+                fullWidth
+                margin="normal"
+                variant="outlined"
+                value={coverLetter}
+                onChange={(event) => setCoverLetter(event.target.value)}
+              />
+            </div>
           )}
 
-            {
-              !generatedResume 
+          {
+            !generatedResume
               ? <Button type="submit" variant="contained" color="primary">Generate</Button>
               : <Button variant="contained" color="primary" onClick={() => generatePDF(generatedResume)}>Download</Button>
-            }
+          }
         </Box>
       ) : (
         <Box
