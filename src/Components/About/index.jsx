@@ -18,6 +18,7 @@ const closeButtonStyle = {
   backgroundColor: 'black',
   color: 'white',
   borderRadius: '1em',
+  cursor: 'pointer'
 }
 
 const imageStyle = {
@@ -34,7 +35,7 @@ const modalStyle = {
   padding: '1em',
   transform: 'translate(-50%, -50%)',
   backgroundColor: '#f0f8ff',
-  height: 600,
+  height: 600, 
   width: 600,
   boxShadow: 24,
   display: 'flex',
