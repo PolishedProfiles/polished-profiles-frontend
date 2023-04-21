@@ -83,6 +83,7 @@ function History({ modalResume, setModalResume }) {
       <Grid
         container
         direction="column"
+        sx={{transform: 'translatey(-12%)'}}
       >
         {history.length > 0 && history.map((resume, idx) => (
           <Button key={`resume-${idx}`} onClick={() => handleOpen(resume)}>Job Application no.{idx + 1}</Button>
