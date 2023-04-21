@@ -108,7 +108,9 @@ function DataEntry({ setModalResume }) {
 
   return (
     <Container maxWidth="md">
-      <h1>{user.email}</h1>
+      <h1>{user.name}</h1>
+      <h2>{user.email}</h2>
+
       {!loading ? (
         // Render form and input fields when not loading
         <Box
@@ -150,52 +152,52 @@ function DataEntry({ setModalResume }) {
           {loading && <CircularProgress />}
 
           {generatedResume && !loading && (
-             <div style={{ display: "flex", gap: "1.5rem", width: "125%" }}>
-             <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-               <TextField
-                 label="Generated Resume"
-                 multiline
-                 rows={20}
-                 fullWidth
-                 margin="normal"
-                 variant="outlined"
-                 value={generatedResume}
-                 onChange={(event) => setGeneratedResume(event.target.value)}
-                 sx={{ resize: 'horizontal', overflow: 'auto' }}
-               />
-               <Button
-                 variant="contained"
-                 color="primary"
-                 sx={{ width: '70%' }}
-                 onClick={() => generatePDF(generatedResume, `${user.email}-resume.pdf`)}
-               >
-                 Download Updated Resume
-               </Button>
-               <ReactMarkdown id="resume-markdown">{generatedResume}</ReactMarkdown>
-             </div>
-             <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-               <TextField
-                 label="Cover Letter"
-                 multiline
-                 rows={20}
-                 fullWidth
-                 margin="normal"
-                 variant="outlined"
-                 value={coverLetter}
-                 onChange={(event) => setCoverLetter(event.target.value)}
-                 sx={{ resize: 'horizontal', overflow: 'auto' }}
-               />
-               <Button
-                 variant="contained"
-                 color="primary"
-                 sx={{ width: '70%' }}
-                 onClick={() => generatePDF(coverLetter, `${user.email}-cover-letter.pdf`)}
-               >
-                 Download Cover Letter
-               </Button>
-               <ReactMarkdown>{coverLetter}</ReactMarkdown>
-             </div>
-           </div>
+            <div style={{ display: "flex", gap: "1.5rem", width: "125%" }}>
+              <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <TextField
+                  label="Generated Resume"
+                  multiline
+                  rows={20}
+                  fullWidth
+                  margin="normal"
+                  variant="outlined"
+                  value={generatedResume}
+                  onChange={(event) => setGeneratedResume(event.target.value)}
+                  sx={{ resize: 'horizontal', overflow: 'auto' }}
+                />
+                <Button
+                  variant="contained"
+                  color="primary"
+                  sx={{ width: '70%' }}
+                  onClick={() => generatePDF(generatedResume, `${user.email}-resume.pdf`)}
+                >
+                  Download Updated Resume
+                </Button>
+                <ReactMarkdown id="resume-markdown">{generatedResume}</ReactMarkdown>
+              </div>
+              <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <TextField
+                  label="Cover Letter"
+                  multiline
+                  rows={20}
+                  fullWidth
+                  margin="normal"
+                  variant="outlined"
+                  value={coverLetter}
+                  onChange={(event) => setCoverLetter(event.target.value)}
+                  sx={{ resize: 'horizontal', overflow: 'auto' }}
+                />
+                <Button
+                  variant="contained"
+                  color="primary"
+                  sx={{ width: '70%' }}
+                  onClick={() => generatePDF(coverLetter, `${user.email}-cover-letter.pdf`)}
+                >
+                  Download Cover Letter
+                </Button>
+                <ReactMarkdown>{coverLetter}</ReactMarkdown>
+              </div>
+            </div>
           )}
 
           {

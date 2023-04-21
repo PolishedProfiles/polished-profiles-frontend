@@ -8,6 +8,8 @@ import DataEntry from './Components/ResumeEntry';
 import History from './Components/History';
 import About from './Components/About';
 import Footer from './Components/Footer';
+import PageContainer from './Components/PageContainer';
+
 
 
 const theme = createTheme({
@@ -20,24 +22,26 @@ const theme = createTheme({
 
 
 function App() {
-const [modalResume, setModalResume] = useState(false);
+  const [modalResume, setModalResume] = useState(false);
   return (
-    <ThemeProvider theme={theme}>
-    <Router>
-      <div className="App">
-        <Navbar />
-        <Routes>
-          <Route path='/' element={<LandingPage />} />
-          
-          <Route path='/history' element={<History modalResume={modalResume} setModalResume={setModalResume} />} />
-          <Route path='/about' element={<About />} />      
-          <Route path='/App' element={<DataEntry setModalResume={setModalResume} />} />
-          
-        </Routes>
-      </div>
-    </Router>
-    <Footer />
-    </ThemeProvider>
+    <PageContainer>
+      <ThemeProvider theme={theme}>
+        <Router>
+          <div className="App">
+            <Navbar />
+            <Routes>
+              <Route path='/' element={<LandingPage />} />
+
+              <Route path='/history' element={<History modalResume={modalResume} setModalResume={setModalResume} />} />
+              <Route path='/about' element={<About />} />
+              <Route path='/App' element={<DataEntry setModalResume={setModalResume} />} />
+
+            </Routes>
+          </div>
+        </Router>
+        <Footer />
+      </ThemeProvider>
+    </PageContainer>
   );
 }
 

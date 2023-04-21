@@ -1,23 +1,24 @@
-import { Container, Grid, Text } from '@mantine/core';
-// import { GitHub, Twitter, Instagram } from 'react-feather';
+import { styled } from '@mui/system';
 
-function Footer() {
+const FooterContainer = styled('footer')({
+  marginTop: 'auto',
+  background: '#333333',
+  color: '#ffffff',
+  padding: '1rem',
+  textAlign: 'center',
+  
+});
+
+const FooterText = styled('span')({
+  marginRight: '0.5rem',
+});
+
+const Footer = () => {
   return (
-    <footer className="footer">
-      <Container size="xl">
-        <Grid
-          id="footer-grid"
-          columns={12}
-          spacing="md"
-          style={{ justifyContent: 'center', alignItems: 'center' }}
-        >
-          <Text align="center" size="sm" style={{ textAlign: 'center' }}>
-            © 2023 Polished Profiles Team. All rights reserved.
-          </Text>
-        </Grid>
-      </Container>
-    </footer>
+    <FooterContainer>
+      <FooterText>© 2023 Polished Profiles Team. All rights reserved.</FooterText>
+    </FooterContainer>
   );
-}
+};
 
 export default Footer;
