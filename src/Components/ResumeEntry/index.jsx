@@ -108,9 +108,13 @@ function DataEntry({ setModalResume }) {
 
   return (
     <Container maxWidth="md">
-      <h1>{user.name}</h1>
-      <h2>{user.email}</h2>
-
+      <h1 style={{textAlign: 'center'}}>Instuctions</h1>
+      <Typography sx={{textAlign: 'center'}}>
+        {
+          generatedResume
+          ? 'Below is your updated resume and cover letter. Please update them as you wish in the text fields and download the updated pdf via the Download button.'
+          :'Please enter your resume and job description below, then press the Generate button to receive an updated resume and cover letter.'
+        }</Typography>
       {!loading ? (
         // Render form and input fields when not loading
         <Box
@@ -163,7 +167,7 @@ function DataEntry({ setModalResume }) {
                   variant="outlined"
                   value={generatedResume}
                   onChange={(event) => setGeneratedResume(event.target.value)}
-                  sx={{ resize: 'horizontal', overflow: 'auto' }}
+                  sx={{ resize: 'horizontal'}}
                 />
                 <Button
                   variant="contained"
@@ -185,7 +189,7 @@ function DataEntry({ setModalResume }) {
                   variant="outlined"
                   value={coverLetter}
                   onChange={(event) => setCoverLetter(event.target.value)}
-                  sx={{ resize: 'horizontal', overflow: 'auto' }}
+                  sx={{ resize: 'horizontal'}}
                 />
                 <Button
                   variant="contained"

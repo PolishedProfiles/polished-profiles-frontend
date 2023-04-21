@@ -76,13 +76,14 @@ function History({ modalResume, setModalResume }) {
 
   return (
     <>
-      <Card sx={{ maxWidth: 150, maxHeight: 400, marginLeft: 2, marginTop: 2, display: 'flex', alignItems: 'center', boxShadow: '2px 2px 5px grey'}}>
+      <Card sx={{ width: '15%', maxHeight: 400, marginLeft: 0,  marginTop: 2, display: 'flex', alignItems: 'center', boxShadow: '2px 2px 5px grey'}}>
         <Profile />
 
       </Card>
       <Grid
         container
         direction="column"
+        sx={{transform: 'translatey(-12%)'}}
       >
         {history.length > 0 && history.map((resume, idx) => (
           <Button key={`resume-${idx}`} onClick={() => handleOpen(resume)}>Job Application no.{idx + 1}</Button>
