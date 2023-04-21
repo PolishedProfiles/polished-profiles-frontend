@@ -32,7 +32,7 @@ nav button {
   border: none;
   cursor: pointer;
   padding: 0;
-  font-size: 1rem;
+  font-size: .97rem;
 }
 
 nav button:hover {
@@ -84,6 +84,7 @@ nav button:hover {
   justify-content: space-around;
   align-items: center;
   padding: 1rem;
+  height: 17vh
 }
 
 .details div {
