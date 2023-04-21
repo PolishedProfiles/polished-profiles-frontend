@@ -9,7 +9,7 @@ import Tyler from '../assets/tyler.jpg';
 import Brenda from '../assets/brenda.jpg';
 import Rafael from '../assets/rafael.png';
 import John from '../assets/john.png';
-import Logo from '../assets/temp-logo-2.png';
+import Logo from '../assets/new-new-logo.png';
 
 const closeButtonStyle = {
   position: 'absolute',
@@ -18,13 +18,14 @@ const closeButtonStyle = {
   backgroundColor: 'black',
   color: 'white',
   borderRadius: '1em',
+  cursor: 'pointer'
 }
 
 const imageStyle = {
   float: 'right',
-  marginRight: '10em',
-  height: 250,
-  width: 250,
+  // marginRight: '10em',
+  height: 375,
+  width: 375,
 }
 
 const modalStyle = {
@@ -34,7 +35,7 @@ const modalStyle = {
   padding: '1em',
   transform: 'translate(-50%, -50%)',
   backgroundColor: '#f0f8ff',
-  height: 600,
+  height: 600, 
   width: 600,
   boxShadow: 24,
   display: 'flex',
@@ -97,35 +98,37 @@ function About({ aboutus }) {
 
   return (
     <>
-      <Grid container direction="column" sx={{ padding: '2rem', backgroundColor: '#efeef3' }}>
-        <div style={{ marginLeft: '7em' }}>
-          <Typography sx={{ fontWeight: 'bold', fontSize: '1.5rem', marginBottom: '1rem' }}>Welcome to Polished Profiles ✨ </Typography>
-          <img src={Logo} alt="Logo" style={imageStyle} />
-            <Typography sx={{ marginBottom: '1rem', width: '60%' }}>The ultimate job application tool for the modern professional. Say goodbye to endless formatting and tailoring of resumes and cover letters to fit each job application. With Polished Profiles, you can simply upload your resume and the job description, and let our app take care of the rest.</Typography>
-            <Typography sx={{ marginBottom: '1rem', width: '60%' }}>Our advanced algorithms analyze the job description and match it with your skills and experience. The app then creates a tailored resume and cover letter that specifically highlights your relevant experience and qualifications for that job. Whether you're looking to switch careers or just want to stand out from the crowd in your job search, Polished Profiles has got you covered. With our easy-to-use platform, you can submit multiple job applications in just minutes, without compromising on quality.</Typography>
-            <Typography sx={{ marginBottom: '1rem', width: '60%' }}>Take your job search to the next level with Polished Profiles. Start your journey towards your dream job today!</Typography>
-            <Typography sx={{ fontWeight: 'bold', fontSize: '1.5rem', marginTop: '1rem' }}>About the Developers</Typography>
+      <Grid container direction="column" sx={{ padding: '2rem', backgroundColor: 'white' }}>
+        <div style={{display: 'flex', width: '70%', margin: '0 auto', justifyContent: 'space-apart', gap: '10rem'}}>
+          <div style={{width: '80%'}}>
+          <Typography variant='h4' style={{textAlign: 'center', fontWeight: '600', borderBottom: '3px black solid', marginBottom: '1rem'}} >Welcome to Polished Profiles ✨ </Typography>
+            <Typography style={{letterSpacing: '.2px', lineHeight: '1.3', marginBottom: '1rem', fontWeight: '600', fontSize: '1.1rem'}} > The ultimate job application tool for the modern professional. Say goodbye to endless formatting and tailoring of resumes and cover letters to fit each job application. With Polished Profiles, you can simply upload your resume and the job description, and let our app take care of the rest.</Typography>
+            <Typography style={{letterSpacing: '.2px', lineHeight: '1.3', marginBottom: '1rem', fontWeight: '600', fontSize: '1.1rem'}} >Our advanced algorithms analyze the job description and match it with your skills and experience. The app then creates a tailored resume and cover letter that specifically highlights your relevant experience and qualifications for that job. Whether you're looking to switch careers or just want to stand out from the crowd in your job search, Polished Profiles has got you covered. With our easy-to-use platform, you can submit multiple job applications in just minutes, without compromising on quality.</Typography>
+            <Typography sx={{ letterSpacing: '.2px', lineHeight: '1.3', marginBottom: '1rem', fontWeight: '600', fontSize: '1.1rem'}}>Take your job search to the next level with Polished Profiles. Start your journey towards your dream job today!</Typography>
+            </div>
+            <img src={Logo} alt="Logo" style={imageStyle} />
         </div>
 
-        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+            <Typography sx={{ fontWeight: 'bold', fontSize: '1.5rem', borderBottom: '3px black solid', width: '70%', margin: '0 auto', marginBottom: '1em' }}>About the Developers</Typography>
+        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', width: '70%', margin: '0 auto' }}>
           {developers.map((developer, index) => (
-            <div key={index} style={{ margin: '1rem' }}>
-              <Card sx={{ maxWidth: 240, margin: 'auto', boxShadow: '5px 5px 5px #aa9a8a' }}>
+            // <div key={index} style={{ margin: '1rem' }}>
+              <Card sx={{ maxWidth: 220, margin: 'auto', boxShadow: '5px 5px 5px #aa9a8a' }}>
                 <CardActionArea onClick={() => handleImageClick(index)}>
                   <CardMedia
                     component="img"
-                    height="280"
+                    height="250"
                     image={developer.image}
                     alt={developer.name}
                   />
                   <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
+                    <Typography gutterBottom variant="body" style={{fontWeight: '600'}} component="div">
                       {developer.name}
                     </Typography>
                   </CardContent>
                 </CardActionArea>
               </Card>
-            </div>
+            // </div>
           ))}
         </div>
 
