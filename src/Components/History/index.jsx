@@ -76,7 +76,7 @@ function History({ modalResume, setModalResume }) {
 
   return (
     <>
-      <Card sx={{ maxWidth: 150, maxHeight: 400, marginLeft: 2, marginTop: 2, display: 'flex', alignItems: 'center', boxShadow: '2px 2px 5px grey'}}>
+      <Card sx={{ width: '15%', maxHeight: 400, margin: '0 auto',  marginTop: 2, display: 'flex', alignItems: 'center', boxShadow: '2px 2px 5px grey'}}>
         <Profile />
 
       </Card>

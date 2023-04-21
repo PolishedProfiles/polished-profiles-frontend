@@ -84,6 +84,7 @@ nav button:hover {
   justify-content: space-around;
   align-items: center;
   padding: 1rem;
+  height: 15vh
 }
 
 .details div {
