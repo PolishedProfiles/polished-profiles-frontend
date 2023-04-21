@@ -163,7 +163,7 @@ function DataEntry({ setModalResume }) {
                   variant="outlined"
                   value={generatedResume}
                   onChange={(event) => setGeneratedResume(event.target.value)}
-                  sx={{ resize: 'horizontal', overflow: 'auto' }}
+                  sx={{ resize: 'horizontal'}}
                 />
                 <Button
                   variant="contained"
@@ -185,7 +185,7 @@ function DataEntry({ setModalResume }) {
                   variant="outlined"
                   value={coverLetter}
                   onChange={(event) => setCoverLetter(event.target.value)}
-                  sx={{ resize: 'horizontal', overflow: 'auto' }}
+                  sx={{ resize: 'horizontal'}}
                 />
                 <Button
                   variant="contained"
